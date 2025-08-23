@@ -4,6 +4,7 @@ namespace LLMTranslate
     {
         public static void Main(string[] args)
         {
+            // handle commandline args
             var builder = WebApplication.CreateBuilder(args);
             var app = builder.Build();
 
