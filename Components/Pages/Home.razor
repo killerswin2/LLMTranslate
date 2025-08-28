@@ -1,0 +1,50 @@
+﻿@page "/"
+@rendermode InteractiveServer
+<PageTitle>Task Status</PageTitle>
+
+<header>
+    <h1>Task Status</h1>
+</header>
+
+<header>
+    <h1>Task Status</h1>
+</header>
+
+<main class="dashboard-container">
+    <div class="card processed-card">
+        <h2>Processed Tasks</h2>
+        <div class="count-number" id="processed-count">
+            <span>@LLMTranslate.Program.CompletedInfo().Item1</span>
+        </div>
+    </div>
+
+    <div class="card remaining-card">
+        <h2>Remaining Tasks</h2>
+        <div class="count-number" id="remaining-count">
+            <span>@LLMTranslate.Program.CompletedInfo().Item2</span>
+        </div>
+        <div class="tooltip">
+            <p>Estimated Time: <span>@Home.GetEstimatedTime()</span></p>
+        </div>
+    </div>
+
+    <div class="card button-card">
+        <h2>Print Tasks to File</h2>
+        <div>
+            <button @onclick="Print">Print Results</button>
+        </div>
+    </div>
+    
+</main>
+
+
+@code {
+    public static string GetEstimatedTime()
+    {
+        return Program.CompletionTime.GetLastDateTime().ToString("s");
+    }
+    public static void Print()
+    {
+        Program.PrintResults();
+    }
+}

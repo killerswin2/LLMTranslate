@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
-using System.Text.Json.Nodes;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Threading;
 
 namespace LLMTranslate
 {
@@ -9,7 +10,7 @@ namespace LLMTranslate
     {
         private List<Thread> _WorkerThreads = new List<Thread>();
         private List<ServerInfo> _Servers = new List<ServerInfo>();
-        private ConcurrentQueue<int> _IndexQueue = new ConcurrentQueue<int>();
+        public ConcurrentQueue<int> _IndexQueue = new ConcurrentQueue<int>();
         
 
         public ServerTasking(int workSize)
@@ -26,18 +27,26 @@ namespace LLMTranslate
             CancellationTokenSource source = new CancellationTokenSource();
             if (serverInfo.Type == "vLLM")
             {
-                
-                _WorkerThreads.Add(new Thread(new ThreadStart(() => WorkervLLMServerFunction(source.Token, serverInfo, serverOpts))));
+                var thread = new Thread(new ThreadStart(() => WorkervLLMServerFunction(source.Token, serverInfo, serverOpts)));
+                _WorkerThreads.Add(thread);
+                thread.Start();
+
                 return source;
             }
             if(serverInfo.Type == "Ollama")
             {
-                _WorkerThreads.Add(new Thread(new ThreadStart(() => WorkerOllamaServerFunction(source.Token, serverInfo, serverOpts))));
+                var thread = new Thread(new ThreadStart(() => WorkerOllamaServerFunction(source.Token, serverInfo, serverOpts)));
+                _WorkerThreads.Add(thread);
+                thread.Start();
+
                 return source;
             }
             if(serverInfo.Type == "Llama")
             {
-                _WorkerThreads.Add(new Thread(new ThreadStart(() => WorkerLlamaServerFunction(source.Token, serverInfo, serverOpts))));
+                var thread = new Thread(new ThreadStart(() => WorkerLlamaServerFunction(source.Token, serverInfo, serverOpts)));
+                _WorkerThreads.Add(thread);
+                thread.Start();
+
                 return source;
             }
             return null;
@@ -53,16 +62,26 @@ namespace LLMTranslate
             OllamaServerOptions? options = JsonSerializer.Deserialize<OllamaServerOptions>(serverOptions);
             OllamaServer server = new OllamaServer(info, options);
 
-            while (!cancellationToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested && !_IndexQueue.IsEmpty)
             {
                 int result;
                 bool success = _IndexQueue.TryDequeue(out result);
                 if (success)
                 {
                     
+                    string output = String.Empty;
                     string prompt = Program.originalLines[result];
-                    string output = server.ExecuteGenerator(prompt);
+                    if(server.IsGenerate())
+                    {
+                         output = server.ExecuteGenerator(prompt);
+
+                    }
+                    else
+                    {
+                        output = server.ExecuteChat(prompt);
+                    }
                     Program.translatedLines[result] = output;
+                    Program.CompletionTime.GetCompCalcThreaded();
                 }
             }
         }
@@ -75,7 +94,7 @@ namespace LLMTranslate
                 bool success = _IndexQueue.TryDequeue(out result);
                 if (success)
                 {
-
+                    Program.CompletionTime.GetCompCalcThreaded();
                 }
             }
         }
@@ -88,7 +107,7 @@ namespace LLMTranslate
                 bool success = _IndexQueue.TryDequeue(out result);
                 if (success)
                 {
-
+                    Program.CompletionTime.GetCompCalcThreaded();
                 }
             }
         }

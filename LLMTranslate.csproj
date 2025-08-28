@@ -10,4 +10,8 @@
     <PackageReference Include="RestSharp" Version="112.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="obj\" />
+  </ItemGroup>
+
 </Project>
