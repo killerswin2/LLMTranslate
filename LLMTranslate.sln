@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LLMTranslate", "LLMTranslate.csproj", "{6660551F-8FE3-456B-A0CF-06AFE999C49F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LLMTranslate", "LLMTranslate\LLMTranslate.csproj", "{6660551F-8FE3-456B-A0CF-06AFE999C49F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Corrections", "Corrections\Corrections.csproj", "{765BC089-6781-A891-20BF-8D3B85A4E2C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSBStrings", "YSBStrings\YSBStrings.csproj", "{A4BFCDB3-DD83-98C9-31BC-E2C2861F5750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{6660551F-8FE3-456B-A0CF-06AFE999C49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6660551F-8FE3-456B-A0CF-06AFE999C49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6660551F-8FE3-456B-A0CF-06AFE999C49F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{765BC089-6781-A891-20BF-8D3B85A4E2C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{765BC089-6781-A891-20BF-8D3B85A4E2C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{765BC089-6781-A891-20BF-8D3B85A4E2C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{765BC089-6781-A891-20BF-8D3B85A4E2C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4BFCDB3-DD83-98C9-31BC-E2C2861F5750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4BFCDB3-DD83-98C9-31BC-E2C2861F5750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4BFCDB3-DD83-98C9-31BC-E2C2861F5750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4BFCDB3-DD83-98C9-31BC-E2C2861F5750}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
