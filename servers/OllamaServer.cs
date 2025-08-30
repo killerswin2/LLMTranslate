@@ -92,7 +92,7 @@ namespace LLMTranslate
             
 
             Chat promptTranslation = new Chat() { model = "hf.co/sugoitoolkit/Sugoi-14B-Ultra-GGUF:Q4_K_M", messages = new List<Message>(), stream = false, think = false };
-            promptTranslation.messages.Add(new Message() { role = "system", content = "You are a professional localizer whose primary goal is to translate Japanese to English. You should use colloquial or slang or nsfw vocabulary if it makes the translation more accurate. Always respond in English." });
+            promptTranslation.messages.Add(new Message() { role = "system", content = "You are a professional localizer whose primary goal is to translate Japanese to English. You should use colloquial or slang or nsfw vocabulary if it makes the translation more accurate. Always respond in English. When translating text that includes tags (like /SF, /HF, /TA, /TN}, etc.), you need to ensure the tags remain unchanged while only translating the actual text. Preserve all control characters and tags." });
             promptTranslation.messages.Add(new Message() { role = "user", content = prompt });
 
 
